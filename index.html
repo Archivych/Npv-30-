@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetBridge - Доступ к международному каналу</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #0f0f23;
+            --dark-card: #1a1a2e;
+            --dark-text: #e0e0e0;
+            --dark-accent: #2d9cdb;
+            --dark-border: #2d3748;
+            --dark-hover: #2d3748;
+            --light-bg: #f5f5f7;
+            --light-card: #ffffff;
+            --light-text: #1a1a1a;
+            --light-accent: #2563eb;
+            --light-border: #e5e7eb;
+            --light-hover: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body[data-theme="light"] {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--dark-border);
+            margin-bottom: 40px;
+        }
+
+        body[data-theme="light"] header {
+            border-bottom-color: var(--light-border);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body[data-theme="light"] .logo {
+            color: var(--light-accent);
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--dark-border);
+            color: var(--dark-text);
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        body[data-theme="light"] .theme-toggle {
+            border-color: var(--light-border);
+            color: var(--light-text);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--dark-hover);
+        }
+
+        body[data-theme="light"] .theme-toggle:hover {
+            background-color: var(--light-hover);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(45, 156, 219, 0.1), rgba(25, 25, 60, 0.3));
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border: 1px solid var(--dark-border);
+        }
+
+        body[data-theme="light"] .hero {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(255, 255, 255, 0.3));
+            border-color: var(--light-border);
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--dark-accent);
+        }
+
+        body[data-theme="light"] .hero h1 {
+            color: var(--light-accent);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--dark-accent);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        body[data-theme="light"] .cta-button {
+            background-color: var(--light-accent);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(45, 156, 219, 0.3);
+        }
+
+        body[data-theme="light"] .cta-button:hover {
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Features */
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--dark-accent);
+        }
+
+        body[data-theme="light"] .section-title {
+            color: var(--light-accent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background-color: var(--dark-card);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--dark-border);
+        }
+
+        body[data-theme="light"] .feature-card {
+            background-color: var(--light-card);
+            border-color: var(--light-border);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--dark-accent);
+            margin-bottom: 20px;
+        }
+
+        body[data-theme="light"] .feature-icon {
+            color: var(--light-accent);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Instructions */
+        .instructions {
+            background-color: var(--dark-card);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            border: 1px solid var(--dark-border);
+        }
+
+        body[data-theme="light"] .instructions {
+            background-color: var(--light-card);
+            border-color: var(--light-border);
+        }
+
+        .steps {
+            counter-reset: step-counter;
+            margin-top: 30px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed var(--dark-border);
+        }
+
+        body[data-theme="light"] .step {
+            border-bottom-color: var(--light-border);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 20px;
+        }
+
+        body[data-theme="light"] .step-number {
+            background-color: var(--light-accent);
+        }
+
+        .step-content h4 {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .bot-link {
+            color: var(--dark-accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        body[data-theme="light"] .bot-link {
+            color: var(--light-accent);
+        }
+
+        .bot-link:hover {
+            text-decoration: underline;
+        }
+
+        .promo-code {
+            display: inline-block;
+            background-color: rgba(45, 156, 219, 0.1);
+            border: 1px solid var(--dark-accent);
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        body[data-theme="light"] .promo-code {
+            background-color: rgba(37, 99, 235, 0.1);
+            border-color: var(--light-accent);
+        }
+
+        /* Important */
+        .important-note {
+            background-color: rgba(219, 45, 45, 0.1);
+            border-left: 4px solid #db2d2d;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 40px;
+        }
+
+        .important-note h3 {
+            color: #db2d2d;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--dark-border);
+            margin-top: 60px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        body[data-theme="light"] footer {
+            border-top-color: var(--light-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: var(--dark-accent);
+            text-decoration: none;
+        }
+
+        body[data-theme="light"] .footer-links a {
+            color: var(--light-accent);
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .instructions {
+                padding: 25px;
+            }
+            
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-satellite-dish"></i>
+                <span>NetBridge</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Тёмная тема</span>
+            </button>
+        </header>
+
+        <section class="hero">
+            <h1>Доступ к стабильному международному каналу</h1>
+            <p>30 дней высокоскоростного и стабильного подключения к зарубежным интернет-ресурсам без ограничений и падения скорости.</p>
+            <a href="#instructions" class="cta-button">
+                <i class="fas fa-rocket"></i> Как получить доступ
+            </a>
+        </section>
+
+        <h2 class="section-title">Что даёт активация</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3>Оптимизация маршрутов</h3>
+                <p>Доступ к клиенту с технологией интеллектуальной оптимизации сетевых маршрутов в реальном времени.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h3>Высокоскоростное подключение</h3>
+                <p>Подключение к серверам в Европе, Азии и США с максимальной пропускной способностью.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Работа без падения скорости</h3>
+                <p>Стабильная работа с любыми сайтами и сервисами без потери скорости соединения.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-laptop-mobile"></i>
+                </div>
+                <h3>Поддержка всех устройств</h3>
+                <p>Полная поддержка на ПК, смартфонах, планшетах и роутерах.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Автоподбор канала</h3>
+                <p>Автоматический выбор лучшего канала подключения — ничего настраивать не нужно.</p>
+            </div>
+        </div>
+
+        <section class="instructions" id="instructions">
+            <h2 class="section-title">Как это работает</h2>
+            <p>Получите 30 дней подписки всего за несколько простых шагов:</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Перейдите в Telegram-бота</h4>
+                        <p>Перейдите по ссылке: <a href="https://t.me/invisevpn_bot?start=refXxrq0EME" class="bot-link" target="_blank">https://t.me/invisevpn_bot</a></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Запустите бота и выберите язык</h4>
+                        <p>Нажмите <strong>/start</strong>, выберите язык интерфейса и согласитесь с правилами использования сервиса.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Пропустите реферальную программу</h4>
+                        <p>Пропустите этап приглашения друзей (рефералку), если эта функция доступна.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Выберите раздел промокодов</h4>
+                        <p>В главном меню бота выберите раздел <strong>"Промокод"</strong> или аналогичный.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Введите промокод</h4>
+                        <p>Введите следующий промокод для активации 30-дневной подписки:</p>
+                        <div class="promo-code">YOUGAME</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Получите доступ на 30 дней</h4>
+                        <p>После активации промокода вы получите полный доступ к сервису на 30 дней.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="important-note">
+                <h3><i class="fas fa-exclamation-triangle"></i> Важно</h3>
+                <p>Мы не продаём VPN и не занимаемся «обходом» ограничений. Мы предоставляем услугу оптимизации сетевого соединения для работы, обучения и доступа к легальному международному контенту.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 NetBridge. Все права защищены. Сервис оптимизации сетевого соединения.</p>
+            <p>Техническая поддержка: @ArhivsXAXA_bot</p>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-shield-alt"></i> Политика конфиденциальности</a>
+                <a href="#"><i class="fas fa-file-contract"></i> Условия использования</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const themeText = themeToggle.querySelector('span');
+        const body = document.body;
+        
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeButton(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+        
+        function updateThemeButton(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Тёмная тема';
+            } else {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Светлая тема';
+            }
+        }
+    </script>
+</body>
+</html>
